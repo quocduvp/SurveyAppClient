@@ -32,25 +32,9 @@ const styles = theme => ({
 
 class QuestionChoice extends React.Component {
     state = {
-        question: [
-            {
-                title: "question1",
-                ask: ["cau1", "cau2", "cau3"]
-            },
-            {
-                title: "question2",
-                ask: ["cau1", "cau2", "cau3"]
-            },
-            {
-                title: "question3",
-                ask: ["cau1", "cau2", "cau3"]
-            },
-            {
-                title: "question3",
-                ask: ["cau1", "cau2", "cau3"]
-            }
-        ],
+        question: this.props.questions,
         activeStep: 0,
+        disable : false
     };
 
     handleNext = () => {
@@ -70,7 +54,13 @@ class QuestionChoice extends React.Component {
             activeStep: 0,
         });
     };
-
+    disableButton(e){
+        e.preventDetaulf()
+        this.setState({
+            disableButton :true
+        })
+        console.log(this.state)
+    }
     render() {
         const {classes} = this.props;
         const {activeStep} = this.state;
@@ -79,10 +69,10 @@ class QuestionChoice extends React.Component {
                 <Stepper activeStep={activeStep} orientation="vertical">
                     {this.state.question.map((label, index) => {
                         return (
-                            <Step key={label}>
-                                <StepLabel>{label.title}</StepLabel>
+                            <Step key={index}>
+                                <StepLabel>{label.text}</StepLabel>
                                 <StepContent>
-                                    <ListChoice question={label.ask}/>
+                                    <ListChoice question={label}/>
                                     <div className={classes.actionsContainer}>
                                         <div>
                                             <Button

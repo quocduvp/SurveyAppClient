@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import QuestionChoice from './Join/QuestionChoice'
-// import QuestionText from './Join/QuestionText'
+import {connect} from 'react-redux'
+import QuestionText from './Join/QuestionText'
 //ui
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from "@material-ui/core/styles/index";
@@ -12,24 +13,24 @@ import Typography from '@material-ui/core/Typography';
 class SurveyJoinning extends Component {
     render() {
         const {classes} = this.props
-        console.log(this)
+        const joinning = this.props.surveys.joinning
         return (
             <Paper>
                 <Card>
                     <div id={'title'} style={{padding: '16px 10px'}}>
-                        <Typography variant="headline">Live From Space</Typography>
+                        <Typography variant="headline">{joinning.title}</Typography>
                     </div>
                     <CardMedia
                         className={classes.media}
-                        image={'https://www.w3schools.com/css/img_5terre_wide.jpg'}
+                        image={joinning.thumb}
                     />
                     <div id={'description'} style={{padding: '10px'}}>
                         <Typography variant="subheading">
-                            bla ladsa
+                            {joinning.description}
                         </Typography>
                     </div>
                     <CardContent>
-                        <QuestionChoice/>
+                        {joinning.surveys_type_id === 0 ? <QuestionText/> : <QuestionChoice questions={joinning.questions}/> }
                     </CardContent>
                 </Card>
             </Paper>
@@ -44,4 +45,9 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(SurveyJoinning);
+const mapStateToProps = (state) => {
+    return {
+        surveys : state.surveys
+    }
+}
+export default withStyles(styles)(connect(mapStateToProps)(SurveyJoinning));

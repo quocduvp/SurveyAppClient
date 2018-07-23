@@ -2,7 +2,8 @@ import {
     FETCH_SURVEYS_DETAILS,
     FETCH_SURVEYS_LIST, FETCH_SURVEYS_LIST_UNCOMMING,
     FETCH_SURVEYS_START,
-    FETCH_SURVEYS_STOP
+    FETCH_SURVEYS_STOP,
+    JOINING_SURVEY_DETAILS
 } from "../action/surveysActions";
 
 const initialState = {
@@ -14,6 +15,9 @@ const initialState = {
     }],
     details : {
 
+    },
+    joinning:{
+        
     },
     fetched : true
 }
@@ -39,6 +43,10 @@ export const surveysReducer = (state=initialState,actions)=>{
         case FETCH_SURVEYS_LIST:
             return{
                 ...state,surveys: actions.payload
+            }
+        case JOINING_SURVEY_DETAILS:
+            return{
+                ...state, joinning : actions.payload
             }
         default:
             return state

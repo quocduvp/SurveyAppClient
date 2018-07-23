@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 //
-import {Link} from 'react-router-dom'
-import {withStyles} from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -11,7 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {fetchListSurveysIncomming} from "../../../Redux/action/surveysActions";
+import { fetchListSurveysIncomming, changeJoinSurvey } from "../../../Redux/action/surveysActions";
 
 const styles = theme => ({
     root: {
@@ -33,18 +33,21 @@ class GridList extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchListSurveysIncomming())
     }
-
+    JoinSurveys(id,e){
+        e.preventDefault()
+        this.props.dispatch(changeJoinSurvey(id))
+    }
     render() {
-        const {classes} = this.props
+        const { classes } = this.props
         const store = this.props.surveys
         return (
             <div className={classes.root}>
                 <Grid container spacing={8}>
                     {store.surveys.map((survey, id) => {
                         return (
-                            <Grid item xl={3} md={4} sm={6} xs={12}>
+                            <Grid key={id} item xl={3} md={4} sm={6} xs={12}>
                                 <Paper>
-                                    <Card className={classes.paper} style={{position: 'relative'}}>
+                                    <Card className={classes.paper} style={{ position: 'relative' }}>
                                         <CardMedia
                                             className={classes.media}
                                             image={survey.thumb}
@@ -59,16 +62,14 @@ class GridList extends React.Component {
                                         </CardContent>
                                         <CardActions>
                                             <Link to={`/Surveys/Reviews/${survey.id}`} className={classes.link}
-                                                  style={{marginLeft: 'auto'}}>
+                                                style={{ marginLeft: 'auto' }}>
                                                 <Button size="small" color="primary">
                                                     View
                                                 </Button>
                                             </Link>
-                                            <Link to={`/Surveys/Joinning/${survey.id}`} className={classes.link}>
-                                                <Button size="small" color="primary">
-                                                    Join
-                                                </Button>
-                                            </Link>
+                                            <Button onClick={this.JoinSurveys.bind(this,survey.id)} size="small" color="primary">
+                                                Join
+                                            </Button>
                                         </CardActions>
                                     </Card>
                                 </Paper>

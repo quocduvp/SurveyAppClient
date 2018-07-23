@@ -39,6 +39,8 @@ class Home extends Component {
                                         </Link>
                                     </ListItem>
                                 )
+                            }else{
+                                return null
                             }
                         })}
                     </List>

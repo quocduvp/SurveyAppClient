@@ -7,6 +7,8 @@ export const forgot_password = 'https://survey-service-api.azurewebsites.net/api
 export const fetch_list_survey_incomming = "https://survey-service-api.azurewebsites.net//api/v1/user/surveys_incomming"
 export const fetch_list_survey_uncomming = "https://survey-service-api.azurewebsites.net/api/v1/user/surveys_uncomming"
 export const fetch_list_survey_details = "https://survey-service-api.azurewebsites.net/api/v1/user/surveys"
+export const submit_join_surveys =  "https://survey-service-api.azurewebsites.net/api/v1/survey/join"
+export const submit_answer_for_question =  "https://survey-service-api.azurewebsites.net/api/v1/survey/join"
 //faqs
 export const details_faqs = "https://survey-service-api.azurewebsites.net/api/v1/all/faqs"
 export const list_faqs = "https://survey-service-api.azurewebsites.net/api/v1/all/faqs"

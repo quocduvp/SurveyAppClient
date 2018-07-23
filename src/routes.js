@@ -48,7 +48,7 @@ const routes = [
     {path: '/Home', name: 'Home', component: Home},
     {path: '/Surveys', exact: true, name: 'Surveys', component: Surveys},
     {path: '/Surveys/Reviews/:id', exact: true, name: 'Survey Reviews', component: SurveyReview},
-    {path: '/Surveys/Joinning/:id', exact: true, name: 'Survey Join', component: SurveyJoin},
+    {path: '/Surveys/Joinning', exact: true, name: 'Survey Join', component: SurveyJoin},
     {path: '/Support', exact: true, name: 'Support', component: Support},
     {path: '/FAQs', exact: true, name: 'FAQs', component: FAQs},
     {path: '/FAQs/:id', exact: true, name: 'FAQs details', component: FAQsDetails}
