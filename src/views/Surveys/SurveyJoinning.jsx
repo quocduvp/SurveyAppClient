@@ -9,7 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-
+import {nonImage} from '../../nonImage'
 class SurveyJoinning extends Component {
     render() {
         const {classes} = this.props
@@ -22,7 +22,7 @@ class SurveyJoinning extends Component {
                     </div>
                     <CardMedia
                         className={classes.media}
-                        image={joinning.thumb}
+                        image={joinning.thumb != null ? joinning.thumb : nonImage}
                     />
                     <div id={'description'} style={{padding: '10px'}}>
                         <Typography variant="subheading">
@@ -30,7 +30,7 @@ class SurveyJoinning extends Component {
                         </Typography>
                     </div>
                     <CardContent>
-                        {joinning.surveys_type_id === 0 ? <QuestionText/> : <QuestionChoice questions={joinning.questions}/> }
+                        {joinning.surveys_type_id === 0 ? <QuestionText questions={joinning.questions}/> : <QuestionChoice questions={joinning.questions}/> }
                     </CardContent>
                 </Card>
             </Paper>

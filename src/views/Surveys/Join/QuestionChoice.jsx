@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 //
 import {withStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -9,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ListChoice from "./Choices/ListChoice";
+import { disableButton } from '../../../Redux/reducer/disableReducer';
 
 //
 const styles = theme => ({
@@ -41,6 +43,7 @@ class QuestionChoice extends React.Component {
         this.setState(state => ({
             activeStep: state.activeStep + 1,
         }));
+        this.props.dispatch(disableButton())
     };
 
     handleBack = () => {
@@ -59,7 +62,6 @@ class QuestionChoice extends React.Component {
         this.setState({
             disableButton :true
         })
-        console.log(this.state)
     }
     render() {
         const {classes} = this.props;
@@ -87,6 +89,7 @@ class QuestionChoice extends React.Component {
                                                 color="primary"
                                                 onClick={this.handleNext}
                                                 className={classes.button}
+                                                disabled={this.props.button.disable}
                                             >
                                                 {activeStep === this.state.question.length - 1 ? 'Finish' : 'Next'}
                                             </Button>
@@ -111,5 +114,9 @@ class QuestionChoice extends React.Component {
     }
 }
 
-
-export default withStyles(styles)(QuestionChoice);
+const mapStateToProps = (state) => {
+    return{
+        button : state.button
+    }
+}
+export default withStyles(styles)(connect(mapStateToProps)(QuestionChoice));

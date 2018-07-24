@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {createHashHistory} from 'history'
 //ui
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -16,7 +17,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 import SideBarLayout from './SideBarLayout'
 import routes from "../routes";
-
+const hist = createHashHistory()
 class DefaultLayout extends Component {
     constructor(props) {
         super(props)
@@ -46,6 +47,10 @@ class DefaultLayout extends Component {
             this.props.history.push('/Login')
     }
 
+    GoToProfile(e){
+        e.preventDefault()
+        hist.push('/Profile')
+    }
     render() {
         const {classes, theme,myprofile} = this.props;
         return (
@@ -65,7 +70,7 @@ class DefaultLayout extends Component {
                         <Typography variant="title" color="inherit" noWrap style={{flex: 1}}>
                             Surveys Environment
                         </Typography>
-                        <IconButton>
+                        <IconButton onClick={this.GoToProfile.bind(this)}>
                         <Avatar alt="Remy Sharp" src={myprofile.profile.userinfo.avatar}/>
                         </IconButton>
                     </Toolbar>

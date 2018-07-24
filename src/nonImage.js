@@ -1,0 +1,1 @@
+export const nonImage = require('./not_found.png');

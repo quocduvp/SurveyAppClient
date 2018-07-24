@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 //icons
 import {fetchListSurveysUncomming} from "../../../Redux/action/surveysActions";
+import { nonImage } from '../../../nonImage';
 class SurveysUncomming extends Component {
     componentDidMount(){
         this.props.dispatch(fetchListSurveysUncomming())
@@ -26,7 +27,7 @@ class SurveysUncomming extends Component {
                             <Card key={id} className={classes.card}>
                                 <CardMedia
                                     className={classes.cover}
-                                    image={survey.thumb}
+                                    image={survey.thumb != null ? survey.thumb : nonImage}
                                     title="thumb"
                                 />
                                 <div className={classes.details}>

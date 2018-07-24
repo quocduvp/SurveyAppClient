@@ -14,7 +14,7 @@ const initialState = {
         date_start : ""
     }],
     details : {
-
+        date_start : ""
     },
     joinning:{
         

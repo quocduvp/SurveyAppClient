@@ -2,8 +2,9 @@ import axios from "axios";
 import swal from 'sweetalert2'
 import {store} from "../store";
 import qs from 'qs'
-import {fetch_list_survey_incomming, fetch_list_survey_uncomming, submit_join_surveys, submit_answer_for_question} from "../../API/URL";
+import {fetch_list_survey_incomming, fetch_list_survey_uncomming, submit_join_surveys, submit_answer_for_question, fetch_survey_details} from "../../API/URL";
 import { createHashHistory } from 'history'
+import { enableButton } from "../reducer/disableReducer";
 export const FETCH_SURVEYS_LIST = "FETCH_SURVEYS_LIST"
 export const FETCH_SURVEYS_START = "FETCH_SURVEYS_START"
 export const FETCH_SURVEYS_STOP = "FETCH_SURVEYS_STOP"
@@ -68,7 +69,33 @@ export function fetchListSurveysIncomming() {
 }
 
 //View survey details
-
+export function viewDetailsSurvey(idSurvey){
+    return async dispatch => {
+        const settings = await {
+            "async": true,
+            "crossDomain": true,
+            "url": `${fetch_survey_details}/${idSurvey}`,
+            "method": "GET",
+            "headers": {
+                "Authorization": `bearer ${store.getState().account.token}`
+            }
+        }
+        await axios(settings)
+            .then(async r=>{
+                await dispatch({
+                    type : FETCH_SURVEYS_DETAILS,
+                    payload : r.data
+                })
+                await hist.push('/Surveys/Reviews')
+            }).catch(async err=>{
+                await swal({
+                    title : 'Error',
+                    text : 'Surveys not found',
+                    type: 'error'
+                })
+            })
+    }
+}
 //change joinning survey 
 export function changeJoinSurvey(idSurvey) {
     return async dispatch => {
@@ -119,6 +146,8 @@ export function submitAnswerForQuestion(form,idSurvey,idQuestion) {
                     text : 'Submit answer success',
                     type: 'success'
                 })
+                //enable button next
+                await dispatch(enableButton())
             }).catch(async err=>{
                 await swal({
                     title : 'Error',

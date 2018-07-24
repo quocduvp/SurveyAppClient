@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
+import { nonImage } from '../../nonImage'
 //ui
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from "@material-ui/core/styles/index";
@@ -19,19 +21,22 @@ import PublishIcon from '@material-ui/icons/Publish'
 class SurveyReview extends Component {
     render() {
         const {classes} = this.props
+        const survey = this.props.surveys.details
         return (
             <Paper>
                 <Card>
                     <div id={'title'} style={{padding: '16px 10px'}}>
-                        <Typography variant="headline">Live From Space</Typography>
+                        <Typography variant="headline">
+                            {survey.title}
+                        </Typography>
                     </div>
                     <CardMedia
                         className={classes.media}
-                        image={'https://www.w3schools.com/css/img_5terre_wide.jpg'}
+                        image={survey.thumb !== null ? survey.thumb :nonImage}
                     />
                     <div id={'description'} style={{padding: '10px'}}>
                         <Typography variant="subheading">
-                            bla ladsa
+                            {survey.description}
                         </Typography>
                     </div>
                     <CardContent>
@@ -43,25 +48,28 @@ class SurveyReview extends Component {
                                 <ListItemIcon>
                                     <WidgetsIcon/>
                                 </ListItemIcon>
-                                <ListItemText inset primary="Type of questions: Text"/>
+                                <ListItemText inset 
+                                primary={`Type of questions: ${survey.surveys_type.name}`}/>
                             </ListItem>
                             <ListItem button>
                                 <ListItemIcon>
                                     <CheckIcon/>
                                 </ListItemIcon>
-                                <ListItemText inset primary="Number of questions: 12"/>
+                                <ListItemText inset 
+                                primary={`Number of questions: ${survey.total_questions}`}/>
                             </ListItem>
                             <ListItem button>
                                 <ListItemIcon>
                                     <PeopleIcon/>
                                 </ListItemIcon>
-                                <ListItemText inset primary="Participants: 12/100"/>
+                                <ListItemText inset primary={`Participants: ${survey.total_joinners}`}/>
                             </ListItem>
                             <ListItem button>
                                 <ListItemIcon>
                                     <PublishIcon/>
                                 </ListItemIcon>
-                                <ListItemText inset primary="Publish date: 01/01/2000"/>
+                                <ListItemText inset 
+                                primary={`Date start: ${survey.date_start.substring(0,10)}`}/>
                             </ListItem>
                         </List>
                     </CardContent>
@@ -77,5 +85,9 @@ const styles = theme => ({
         width: '100%'
     },
 });
-
-export default withStyles(styles)(SurveyReview);
+const mapStateToProps = (state) => {
+    return {
+        surveys : state.surveys
+    }
+}
+export default withStyles(styles)(connect(mapStateToProps)(SurveyReview));

@@ -11,7 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { fetchListSurveysIncomming, changeJoinSurvey } from "../../../Redux/action/surveysActions";
+import { fetchListSurveysIncomming, changeJoinSurvey, viewDetailsSurvey } from "../../../Redux/action/surveysActions";
+import { nonImage } from '../../../nonImage';
 
 const styles = theme => ({
     root: {
@@ -33,9 +34,13 @@ class GridList extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchListSurveysIncomming())
     }
-    JoinSurveys(id,e){
+    JoinSurveys(id, e) {
         e.preventDefault()
         this.props.dispatch(changeJoinSurvey(id))
+    }
+    ReviewSurveys(id,e){
+        e.preventDefault()
+        this.props.dispatch(viewDetailsSurvey(id))
     }
     render() {
         const { classes } = this.props
@@ -50,7 +55,7 @@ class GridList extends React.Component {
                                     <Card className={classes.paper} style={{ position: 'relative' }}>
                                         <CardMedia
                                             className={classes.media}
-                                            image={survey.thumb}
+                                            image={survey.thumb != null ? survey.thumb : nonImage}
                                         />
                                         <CardContent>
                                             <Typography gutterBottom variant="headline" component="h2">
@@ -61,13 +66,10 @@ class GridList extends React.Component {
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
-                                            <Link to={`/Surveys/Reviews/${survey.id}`} className={classes.link}
-                                                style={{ marginLeft: 'auto' }}>
-                                                <Button size="small" color="primary">
-                                                    View
-                                                </Button>
-                                            </Link>
-                                            <Button onClick={this.JoinSurveys.bind(this,survey.id)} size="small" color="primary">
+                                            <Button onClick={this.ReviewSurveys.bind(this, survey.id)} size="small" color="primary" style={{ marginLeft: 'auto' }}>
+                                                View
+                                            </Button>
+                                            <Button onClick={this.JoinSurveys.bind(this, survey.id)} size="small" color="primary">
                                                 Join
                                             </Button>
                                         </CardActions>
