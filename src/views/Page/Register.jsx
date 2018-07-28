@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import SelectField from "./Register/SelectField";
 import DatePick from "./Register/DatePick";
-import {reisterAccount} from "../../Redux/action/accountActions";
 import qs from "qs";
 import axios from "axios/index";
 import {post_register} from "../../API/URL";

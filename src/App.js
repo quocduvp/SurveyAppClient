@@ -9,7 +9,7 @@ import {fetchMyProfileWithLogin} from "./Redux/action/myprofileActions";
 import { createHashHistory } from 'history'
 const hist = createHashHistory()
 class App extends Component {
-    componentWillMount(){
+    componentDidMount(){
         this.requestRedux()
     }
     requestRedux(){
@@ -21,16 +21,12 @@ class App extends Component {
         }
     }
     render() {
-        const {myprofile} = this.props
         return (
             <HashRouter>
                 <Switch>
                     <Route exact path="/login" name="Login Page" component={Login}/>
                     <Route exact path="/Register" name="Register" component={Register}/>
                     <Route path="/" name="Home" component={DefaultLayout}/>
-                    {myprofile.fetched ?
-                        hist.push('/')  : ''
-                    }
                 </Switch>
             </HashRouter>
         );

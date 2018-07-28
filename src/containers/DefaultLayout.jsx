@@ -38,7 +38,7 @@ class DefaultLayout extends Component {
         this.setState({open: false});
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.requestRedux()
     }
 
@@ -120,6 +120,7 @@ const styles = theme => ({
         display: 'flex',
     },
     appBar: {
+        backgroundColor :'#00701a',
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,

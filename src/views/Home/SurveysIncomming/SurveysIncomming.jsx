@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 //
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
@@ -11,10 +10,10 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 //icons
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import {fetchListSurveysIncomming} from "../../../Redux/action/surveysActions";
+import { fetchListSurveysIncomming, changeJoinSurvey } from "../../../Redux/action/surveysActions";
 
 class Home extends Component {
-    componentDidMount(){
+    componentDidMount() {
         this.props.dispatch(fetchListSurveysIncomming())
     }
     render() {
@@ -22,24 +21,22 @@ class Home extends Component {
         return (
             <Grid item lg={4} md={5} xs={12}>
                 <Paper>
-                    <Typography variant="title" gutterBottom style={{padding: '10px 0px 0px 20px'}}>
+                    <Typography variant="title" gutterBottom style={{ padding: '10px 0px 0px 20px' }}>
                         Join surveys
                     </Typography>
                     <List component="nav">
-                        {store.surveys.map((survey,id)=>{
-                            if(id <=4){
-                                return(
+                        {store.surveys.map((survey, id) => {
+                            if (id <= 4) {
+                                return (
                                     <ListItem key={id} button>
-                                        <ListItemText primary={survey.title}/>
-                                        <div style={{flex: 1}}></div>
-                                        <Link to={`/Surveys/Joinning/${survey.id}`}>
-                                            <IconButton>
-                                                <ChevronRightIcon/>
-                                            </IconButton>
-                                        </Link>
+                                        <ListItemText primary={survey.title} />
+                                        <div style={{ flex: 1 }}></div>
+                                        <IconButton onClick={()=>this.props.dispatch(changeJoinSurvey(survey.id))}>
+                                            <ChevronRightIcon />
+                                        </IconButton>
                                     </ListItem>
                                 )
-                            }else{
+                            } else {
                                 return null
                             }
                         })}
@@ -49,9 +46,9 @@ class Home extends Component {
         );
     }
 }
-const mapStateToProps = (state)=>{
-    return{
-        surveys : state.surveys
+const mapStateToProps = (state) => {
+    return {
+        surveys: state.surveys
     }
 }
 export default connect(mapStateToProps)(Home);

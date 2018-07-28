@@ -2,7 +2,7 @@ import axios from "axios";
 import swal from 'sweetalert2'
 import {store} from "../store";
 import qs from 'qs'
-import {fetch_list_survey_incomming, fetch_list_survey_uncomming, submit_join_surveys, submit_answer_for_question, fetch_survey_details} from "../../API/URL";
+import {fetch_list_survey_incomming, fetch_list_survey_uncomming, submit_join_surveys, submit_answer_for_question, fetch_survey_details, list_survey_submitted} from "../../API/URL";
 import { createHashHistory } from 'history'
 import { enableButton } from "../reducer/disableReducer";
 export const FETCH_SURVEYS_LIST = "FETCH_SURVEYS_LIST"
@@ -11,7 +11,7 @@ export const FETCH_SURVEYS_STOP = "FETCH_SURVEYS_STOP"
 export const FETCH_SURVEYS_DETAILS = "FETCH_SURVEYS_DETAILS"
 export const FETCH_SURVEYS_LIST_UNCOMMING = "FETCH_SURVEYS_LIST_UNCOMMING"
 export const JOINING_SURVEY_DETAILS = "JOINING_SURVEY_DETAILS"
-
+export const LIST_SURVEY_SUBMITTED = "LIST_SURVEY_SUBMITTED"
 const hist = createHashHistory()
 //
 export function fetchListSurveysUncomming() {
@@ -152,6 +152,62 @@ export function submitAnswerForQuestion(form,idSurvey,idQuestion) {
                 await swal({
                     title : 'Error',
                     text : 'Submit answer fails',
+                    type: 'error'
+                })
+            })
+    }
+}
+
+//get list surveys joinned for user 
+export function fetchListSurveysSubmitted() {
+    return async dispatch => {
+        const settings = await {
+            "async": true,
+            "crossDomain": true,
+            "url": list_survey_submitted,
+            "method": "GET",
+            "headers": {
+                "Authorization": `bearer ${store.getState().account.token}`
+            }
+        }
+        await axios(settings)
+            .then(async r=>{
+                await dispatch({
+                    type : LIST_SURVEY_SUBMITTED,
+                    payload : r.data
+                })
+            }).catch(async err=>{
+                await swal({
+                    title : 'Error',
+                    text : 'Surveys not found',
+                    type: 'error'
+                })
+            })
+    }
+}
+//get details survey after submitted
+export function fetchDetailsSurveysSubmitted(idSurveyResponse){
+    return async dispatch => {
+        const settings = await {
+            "async": true,
+            "crossDomain": true,
+            "url": `${list_survey_submitted}/${idSurveyResponse}`,
+            "method": "GET",
+            "headers": {
+                "Authorization": `bearer ${store.getState().account.token}`
+            }
+        }
+        await axios(settings)
+            .then(async r=>{
+                await dispatch({
+                    type : FETCH_SURVEYS_DETAILS,
+                    payload : r.data
+                })
+                await hist.push('/Profile/Surveys/Details')
+            }).catch(async err=>{
+                await swal({
+                    title : 'Error',
+                    text : 'Surveys not found',
                     type: 'error'
                 })
             })

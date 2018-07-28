@@ -2,18 +2,9 @@ import React, { Fragment, PureComponent } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles'
 import { DatePicker } from 'material-ui-pickers';
 
-class DatePick extends PureComponent {
-    state = {
-        selectedDate: new Date(),
-    }
-
-    handleDateChange = (date) => {
-        this.setState({ selectedDate: date });
-    }
-
+class Birthday extends PureComponent {
     render() {
         const {classes} = this.props
-        console.log(this.state)
         return (
             <Fragment>
                 <div className={classes.date_pick}>
@@ -25,9 +16,9 @@ class DatePick extends PureComponent {
                         placeholder="10/10/2018"
                         // handle clearing outside => pass plain array if you are not controlling value outside
                         mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
-                        value={this.props.dateJoin}
-                        onChange={this.props.changeDate}
-                        name = "date_join"
+                        value={this.props.birthday}
+                        onChange={this.props.change}
+                        name = "birthday"
                         disableOpenOnEnter
                         animateYearScrolling={false}
                     />
@@ -46,4 +37,4 @@ const styles = theme => ({
         width : '100%'
     }
 })
-export default withStyles(styles)(DatePick)
+export default withStyles(styles)(Birthday)

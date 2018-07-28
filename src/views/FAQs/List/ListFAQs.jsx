@@ -66,7 +66,7 @@ class ListFAQs extends React.Component {
                                     </Typography>
                                     <div className={classes.view}>
                                         <Button onClick={() => hist.push(`/faqs/${faq.id}`)} variant={'extendedFab'}
-                                                color={'primary'}>
+                                                color={'primary'} style={{backgroundColor: '#4CAF50'}}>
                                             Views <PlayArrowIcon/>
                                         </Button>
                                     </div>

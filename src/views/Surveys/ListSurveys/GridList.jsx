@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 //
-import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -52,7 +51,7 @@ class GridList extends React.Component {
                         return (
                             <Grid key={id} item xl={3} md={4} sm={6} xs={12}>
                                 <Paper>
-                                    <Card className={classes.paper} style={{ position: 'relative' }}>
+                                    <Card className={classes.paper} style={{ position: 'relative',backgroundColor:'#43a047' }}>
                                         <CardMedia
                                             className={classes.media}
                                             image={survey.thumb != null ? survey.thumb : nonImage}
@@ -66,10 +65,10 @@ class GridList extends React.Component {
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
-                                            <Button onClick={this.ReviewSurveys.bind(this, survey.id)} size="small" color="primary" style={{ marginLeft: 'auto' }}>
+                                            <Button onClick={this.ReviewSurveys.bind(this, survey.id)} size="medium" color="default" style={{ marginLeft: 'auto' }}>
                                                 View
                                             </Button>
-                                            <Button onClick={this.JoinSurveys.bind(this, survey.id)} size="small" color="primary">
+                                            <Button onClick={this.JoinSurveys.bind(this, survey.id)} size="medium" color="default">
                                                 Join
                                             </Button>
                                         </CardActions>

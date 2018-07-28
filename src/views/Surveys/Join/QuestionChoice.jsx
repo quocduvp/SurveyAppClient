@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import {createHashHistory} from 'history'
 //
 import {withStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -8,11 +9,11 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import ListChoice from "./Choices/ListChoice";
 import { disableButton } from '../../../Redux/reducer/disableReducer';
 
 //
+const hist = createHashHistory()
 const styles = theme => ({
     root: {
         width: '100%',
@@ -58,10 +59,14 @@ class QuestionChoice extends React.Component {
         });
     };
     disableButton(e){
-        e.preventDetaulf()
+        e.preventDefault()
         this.setState({
             disableButton :true
         })
+    }
+    GotoHome(e){
+        e.preventDefault()
+        hist.push('/home')
     }
     render() {
         const {classes} = this.props;
@@ -103,9 +108,11 @@ class QuestionChoice extends React.Component {
                 {/**/}
                 {activeStep === this.state.question.length && (
                     <Paper square elevation={0} className={classes.resetContainer}>
-                        <Typography>All steps completed - you&quot;re finished</Typography>
+                        <Button onClick={this.GotoHome.bind(this)} className={classes.button}>
+                            Go to home
+                        </Button>
                         <Button onClick={this.handleReset} className={classes.button}>
-                            Reset
+                            Reset my answer
                         </Button>
                     </Paper>
                 )}

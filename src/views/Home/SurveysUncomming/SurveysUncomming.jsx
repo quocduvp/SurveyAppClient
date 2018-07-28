@@ -22,6 +22,7 @@ class SurveysUncomming extends Component {
                     <Typography variant="title" gutterBottom>
                         Next to:
                     </Typography>
+                    {store.surveys_uncomming.length === 0 ? 'No upcoming survey' : ''}
                     {store.surveys_uncomming.map((survey,id)=>{
                         return(
                             <Card key={id} className={classes.card}>

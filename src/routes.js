@@ -22,6 +22,12 @@ const Profile = Loadable({
     loading: Loading,
 });
 
+const SurveyDetailsForUSer = Loadable({
+    loader: () => import('./views/Profile/SurveysJoined/Details/Details'),
+    loading: Loading,
+});
+
+//
 const SurveyReview = Loadable({
     loader: () => import('./views/Surveys/SurveyReview'),
     loading: Loading,
@@ -51,7 +57,8 @@ const FAQsDetails = Loadable({
 const routes = [
     {path: '/', exact: true, name: 'Home', component: DefaultLayout},
     {path: '/Home', name: 'Home', component: Home},
-    {path: '/Profile', name: 'Profile', component: Profile},
+    {path: '/Profile', exact: true, name: 'Profile', component: Profile},
+    {path: '/Profile/Surveys/Details', exact: true, name: 'Details surveys for user', component: SurveyDetailsForUSer},
     {path: '/Surveys', exact: true, name: 'Surveys', component: Surveys},
     {path: '/Surveys/Reviews', exact: true, name: 'Survey Reviews', component: SurveyReview},
     {path: '/Surveys/Joinning', exact: true, name: 'Survey Join', component: SurveyJoin},
