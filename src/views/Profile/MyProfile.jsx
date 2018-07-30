@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import {nonImage} from '../../nonImage'
 import DialogEditProfile from './MyProfile/DialogEditProfile';
 import UploadAvatar from './MyProfile/UploadAvatar';
+import DialogResetPassword from './MyProfile/DialogResetPassword';
 const styles = theme => ({
     root: {
         ...theme.mixins.gutters(),
@@ -62,7 +63,8 @@ class MyProfile extends Component {
                             {profile.username}
                         </Typography>
                         <Typography variant="subheading">
-                            {profile.role.role_name}
+                            {profile.userinfo.classroom.class_code} {' '}
+                            ({profile.userinfo.classroom.faculty_name})
                         </Typography>
                     </div>
                 </div>
@@ -72,13 +74,6 @@ class MyProfile extends Component {
                     </Typography>
                     <Typography component="p">
                     {profile.userinfo.last_name}{' '}{profile.userinfo.first_name}
-                    </Typography>
-                    <Typography variant="headline" component="h3">
-                    Classroom:
-                    </Typography>
-                    <Typography component="p">
-                        {profile.userinfo.classroom.class_code} {' '}
-                        ({profile.userinfo.classroom.faculty_name})
                     </Typography>
                     <Typography variant="headline" component="h3">
                     Gender:
@@ -107,6 +102,7 @@ class MyProfile extends Component {
                 </div>
                 <div style={{textAlign : 'center'}}>
                     <DialogEditProfile profile={profile}/>
+                    <DialogResetPassword/>
                 </div>
             </div>
         );

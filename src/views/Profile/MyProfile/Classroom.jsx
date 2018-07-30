@@ -26,7 +26,7 @@ class Classroom extends Component {
         const { classes } = this.props
         return (
             <FormControl fullWidth className={classes.formControl}>
-                <InputLabel htmlFor="demo-controlled-open-select">Section</InputLabel>
+                <InputLabel htmlFor="demo-controlled-open-select">My class</InputLabel>
                 <Select
                     value={this.props.classroom_id}
                     name="classroom_id"

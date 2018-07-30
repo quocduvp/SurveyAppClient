@@ -21,7 +21,6 @@ class Login extends Component {
     }
     Submit(e){
         e.preventDefault()
-        console.log(this.props)
         this.props.dispatch(loginAccount(this.state))
     }
     Change(e){

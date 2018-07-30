@@ -79,7 +79,7 @@ class Form extends React.Component {
                         shrink: true,
                     }}
                     onChange={this.ChangeForm.bind(this)}
-                    name='Description'
+                    name='description'
                     value={this.state.description}
                     multiline
                     placeholder="subject"

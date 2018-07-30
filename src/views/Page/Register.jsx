@@ -76,8 +76,8 @@ class Register extends Component {
         })
     }
 
-    //check password
-    CheckPassword() {
+     //check password
+    CheckPassword = () => {
         // const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
         const UpperCase = /(?=.*?[A-Z])/
         const LowerCase = /(?=.*?[a-z])/
@@ -85,26 +85,29 @@ class Register extends Component {
         const specialChar = /(?=.*?[#?!@$%^&*-])/
         const len8 = /.{8,}/
         if (!UpperCase.test(this.state.password)) {
-            return (<Typography color={'error'} variant={"subheading"}>Least one upper case</Typography>)
+            return false
         } else if (!LowerCase.test(this.state.password)) {
-            return (<Typography color={'error'} variant={"subheading"}>Least one lower case</Typography>)
+            return false
         } else if (!number.test(this.state.password)) {
-            return (<Typography color={'error'} variant={"subheading"}>Least one digit</Typography>)
+            return false
         } else if (!specialChar.test(this.state.password)) {
-            return (<Typography color={'error'} variant={"subheading"}>Least one special character</Typography>)
+            return false
         } else if (!len8.test(this.state.password)) {
-            return (<Typography color={'error'} variant={"subheading"}>Minimum eight in length</Typography>)
+            return false
         } else {
-            return (<Typography color={'primary'} variant={"subheading"}>Password pass</Typography>)
+            return true
         }
     }
-
+    componentDidUpdate(){
+        this.CheckPassword()
+        this.CheckConfirmPassword()
+    }
     //check confirm password
-    CheckConfirmPassword() {
+    CheckConfirmPassword = ()  => {
         if (this.state.password === this.state.password2) {
-            return (<Typography color={'primary'} variant={"subheading"}>Confirm password pass</Typography>)
+            return true
         } else {
-            return (<Typography color={'error'} variant={"subheading"}>Passwords are not the same</Typography>)
+            return false
         }
     }
 
@@ -153,6 +156,7 @@ class Register extends Component {
                                     />
 
                                     <TextField
+                                        error = {!this.CheckPassword()}
                                         id="Password"
                                         label="Password"
                                         type={'password'}
@@ -166,9 +170,9 @@ class Register extends Component {
                                         fullWidth
                                         margin="normal"
                                     />
-                                    {value.password.length > 0 ? this.CheckPassword() : ""}
-
                                     <TextField
+                                        error = {!this.CheckConfirmPassword()}
+                                        disabled={this.state.password.length > 0 ? !this.CheckPassword() : true}
                                         id="ConfirmPassword"
                                         label="Confirm Password"
                                         type={'password'}
@@ -182,12 +186,10 @@ class Register extends Component {
                                         fullWidth
                                         margin="normal"
                                     />
-                                    {value.password2.length > 0 ? this.CheckConfirmPassword() : ""}
-
                                     <SelectField changeSection={this.ChangeForm} section={value.section}/>
                                     <DatePick changeDate={this.handleDateChange} dateJoin={value.date_join}/>
                                     <div className={classes.buttonGroup}>
-                                        <Button type={'submit'} variant="contained" color="primary"
+                                        <Button disabled={this.state.password2.length > 0 ? !this.CheckConfirmPassword() : true} type={'submit'} variant="contained" color="primary"
                                                 style={{backgroundColor: '#4CAF50'}}>
                                             Register
                                         </Button>

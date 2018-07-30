@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {createHashHistory} from 'history'
 //ui
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -11,13 +10,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Avatar from '@material-ui/core/Avatar';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 import SideBarLayout from './SideBarLayout'
 import routes from "../routes";
-const hist = createHashHistory()
+import AvatarProfile from './AvatarProfile';
 class DefaultLayout extends Component {
     constructor(props) {
         super(props)
@@ -47,10 +45,6 @@ class DefaultLayout extends Component {
             this.props.history.push('/Login')
     }
 
-    GoToProfile(e){
-        e.preventDefault()
-        hist.push('/Profile')
-    }
     render() {
         const {classes, theme,myprofile} = this.props;
         return (
@@ -70,9 +64,7 @@ class DefaultLayout extends Component {
                         <Typography variant="title" color="inherit" noWrap style={{flex: 1}}>
                             Surveys Environment
                         </Typography>
-                        <IconButton onClick={this.GoToProfile.bind(this)}>
-                        <Avatar alt="Remy Sharp" src={myprofile.profile.userinfo.avatar}/>
-                        </IconButton>
+                        <AvatarProfile username={myprofile.profile.username} avatar={myprofile.profile.userinfo.avatar}/>
                     </Toolbar>
                 </AppBar>
                 <Drawer

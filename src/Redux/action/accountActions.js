@@ -1,8 +1,9 @@
 import axios from "axios";
 import qs from 'qs'
 import swal from 'sweetalert2'
-import {forgot_password, post_login} from "../../API/URL";
-import {fetchMyProfileWithLogin} from '../action/myprofileActions'
+import {forgot_password, post_login, reset_my_password} from "../../API/URL";
+import {fetchMyProfileWithLogin, FETCHED_MY_PROFILE} from '../action/myprofileActions'
+import { store } from "../store";
 
 export const RECIEVE_TOKEN = 'RECIEVE_TOKEN'
 
@@ -36,6 +37,40 @@ export function forgotPassword(form) {
                     title: 'Error'
                 })
             })
+    }
+}
+
+export function resetPassword(form){
+    return async dispatch => {
+        let settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": reset_my_password,
+            "method": "POST",
+            "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `bearer ${store.getState().account.token}`
+            },
+            "data": qs.stringify(form)
+        }
+        await axios(settings)
+        .then(async r=>{
+            await swal({
+                title : 'Success',
+                icon : 'success',
+                text : 'Reset my password successful.'
+            })
+            await dispatch({
+                type : FETCHED_MY_PROFILE,
+                payload : r.data
+            })
+        }).catch(async err=>{
+            await swal({
+                text:'Reset password fails.',
+                title : 'Error',
+                type : 'error'
+            })
+        })
     }
 }
 

@@ -141,11 +141,6 @@ export function submitAnswerForQuestion(form,idSurvey,idQuestion) {
         }
         await axios(settings)
             .then(async r=>{
-                await swal({
-                    title : 'Success',
-                    text : 'Submit answer success',
-                    type: 'success'
-                })
                 //enable button next
                 await dispatch(enableButton())
             }).catch(async err=>{

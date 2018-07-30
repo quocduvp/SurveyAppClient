@@ -4,6 +4,7 @@ export const get_details_account = 'https://survey-service-api.azurewebsites.net
 export const forgot_password = 'https://survey-service-api.azurewebsites.net/api/v1/user/report_account'
 export const edit_my_profile = "https://survey-service-api.azurewebsites.net/api/v1/user/profile"
 export const upload_avatar = "https://survey-service-api.azurewebsites.net/api/v1/upload"
+export const reset_my_password = "https://survey-service-api.azurewebsites.net/api/v1/user/reset_account"
 //surveys
 export const fetch_list_survey_incomming = "https://survey-service-api.azurewebsites.net//api/v1/user/surveys_incomming"
 export const fetch_list_survey_uncomming = "https://survey-service-api.azurewebsites.net/api/v1/user/surveys_uncomming"
