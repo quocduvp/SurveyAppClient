@@ -62,10 +62,13 @@ class MyProfile extends Component {
                         <Typography variant="title">
                             {profile.username}
                         </Typography>
-                        <Typography variant="subheading">
-                            {profile.userinfo.classroom.class_code} {' '}
-                            ({profile.userinfo.classroom.faculty_name})
-                        </Typography>
+                        {profile.userinfo.classroom !== null ?
+                            <Typography variant="subheading">
+                                {profile.userinfo.classroom.class_code} {' '}
+                                ({profile.userinfo.classroom.faculty_name})
+                            </Typography> :
+                            ''
+                        }
                     </div>
                 </div>
                 <div className={classes.details}>
@@ -85,7 +88,7 @@ class MyProfile extends Component {
                     Birthday:
                     </Typography>
                     <Typography component="p">
-                    {profile.userinfo.birthday.substring(0,10)}
+                    {profile.userinfo.birthday !== null ?profile.userinfo.birthday.substring(0,10) : ''}
                     </Typography>
                     <Typography variant="headline" component="h3">
                     Phone number:

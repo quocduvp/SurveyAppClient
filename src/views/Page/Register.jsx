@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
+import {createHashHistory} from 'history'
 //
 import withStyles from '@material-ui/core/styles/withStyles'
 import Grid from '@material-ui/core/Grid'
@@ -14,6 +15,7 @@ import qs from "qs";
 import axios from "axios/index";
 import {post_register} from "../../API/URL";
 import swal from 'sweetalert2'
+const hist = createHashHistory()
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -61,12 +63,13 @@ class Register extends Component {
             },
             "data": qs.stringify(this.state)
         }
-        axios(settings).then(r => {
-            swal({
+        axios(settings).then(async r => {
+            await swal({
                 text: r.data.message,
                 type: 'success',
                 title: 'Success'
             })
+            await hist.push('/login')
         }).catch(err => {
             swal({
                 text: 'Register fails',
@@ -136,7 +139,6 @@ class Register extends Component {
                                         onChange={this.ChangeForm}
                                         value={value.card_id}
                                         placeholder="Placeholder"
-                                        helperText="Full width!"
                                         fullWidth
                                         margin="normal"
                                     />
@@ -150,7 +152,6 @@ class Register extends Component {
                                         onChange={this.ChangeForm}
                                         value={value.username}
                                         placeholder="Placeholder"
-                                        helperText="Full width!"
                                         fullWidth
                                         margin="normal"
                                     />
@@ -164,6 +165,7 @@ class Register extends Component {
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
+                                        helperText="Ex: User@12345"
                                         onChange={this.ChangeForm}
                                         value={value.password}
                                         placeholder="Placeholder"
