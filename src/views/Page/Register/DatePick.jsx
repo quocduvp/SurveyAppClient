@@ -3,17 +3,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import { DatePicker } from 'material-ui-pickers';
 
 class DatePick extends PureComponent {
-    state = {
-        selectedDate: new Date(),
-    }
-
-    handleDateChange = (date) => {
-        this.setState({ selectedDate: date });
-    }
-
     render() {
         const {classes} = this.props
-        console.log(this.state)
         return (
             <Fragment>
                 <div className={classes.date_pick}>
@@ -21,11 +12,14 @@ class DatePick extends PureComponent {
                         className={classes.dateField}
                         keyboard
                         label="Date join"
-                        format="DD/MM/YYYY"
+                        format="MM/DD/YYYY"
                         placeholder="10/10/2018"
+                        helperText="MM/DD/YYYY"
                         // handle clearing outside => pass plain array if you are not controlling value outside
                         mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
-                        value={this.props.dateJoin}
+                        value={new Date(this.props.dateJoin) >= new Date('01-01-1940')
+                            ? this.props.dateJoin : '01-01-2000'
+                        }
                         onChange={this.props.changeDate}
                         name = "date_join"
                         disableOpenOnEnter

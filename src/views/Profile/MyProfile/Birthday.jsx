@@ -12,11 +12,13 @@ class Birthday extends PureComponent {
                         className={classes.dateField}
                         keyboard
                         label="Date join"
-                        format="DD/MM/YYYY"
+                        format="MM/DD/YYYY"
                         placeholder="10/10/2018"
+                        helperText="MM/DD/YYYY"
                         // handle clearing outside => pass plain array if you are not controlling value outside
                         mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
-                        value={this.props.birthday}
+                        value={new Date(this.props.birthday) >= new Date('01-01-1940') 
+                            ? this.props.birthday : '01-01-2000'}
                         onChange={this.props.change}
                         name = "birthday"
                         disableOpenOnEnter

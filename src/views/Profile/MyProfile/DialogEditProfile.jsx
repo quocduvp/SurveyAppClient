@@ -47,7 +47,7 @@ class DialogEditProfile extends React.Component {
         let day = date.getDate();
         let year = date.getFullYear();
         let month = months[date.getMonth()];
-        let birthday = day + "-" + month + "-" + year
+        let birthday = month + "-" + day + "-" + year
         this.setState({
             birthday: birthday
         })

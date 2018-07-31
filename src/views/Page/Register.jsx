@@ -45,7 +45,7 @@ class Register extends Component {
         let day = date.getDate();
         let year = date.getFullYear();
         let month = months[date.getMonth()];
-        let date_join = day + "-" + month + "-" + year
+        let date_join = month + "-" + day + "-" + year
         this.setState({
             date_join: date_join
         })
